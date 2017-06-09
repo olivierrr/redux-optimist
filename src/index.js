@@ -13,7 +13,7 @@ module.exports.REVERT = REVERT;
 function optimist(fn) {
   function beginReducer(state, action) {
     let {optimist, innerState} = separateState(state);
-    optimist = optimist.concat([{beforeState: innerState, action}]);
+    optimist = optimist.concat([{beforeState: JSON.parse(JSON.stringify(innerState)), action}]);
     innerState = fn(innerState, action);
     validateState(innerState, action);
     return {optimist, ...innerState};
@@ -71,7 +71,7 @@ function optimist(fn) {
         if (started) {
           if (gotInitialState && entry.beforeState) {
             newOptimist.push({
-              beforeState: currentState,
+              beforeState: JSON.parse(JSON.stringify(currentState)),
               action: entry.action
             });
           } else {
