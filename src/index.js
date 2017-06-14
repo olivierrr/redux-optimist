@@ -28,7 +28,7 @@ function optimist(fn) {
           matchesTransaction(entry.action, action.optimist.id)
         ) {
           committed = true;
-          newOptimist.push({action: entry.action});
+          newOptimist.push(entry);
         } else {
           newOptimist.push(entry);
         }
@@ -43,6 +43,7 @@ function optimist(fn) {
         matchesTransaction(entry.action, action.optimist.id)
       ) {
         committed = true;
+        newOptimist.push(entry);
       }
     });
     if (!committed) {
